@@ -1,3 +1,8 @@
+"""
+A document processor for producing document contexts
+and parsing model outputs.
+"""
+
 import logging
 from collections import defaultdict
 from dataclasses import dataclass
@@ -378,7 +383,7 @@ class DocumentProcessor:
         # pt: pivot text
         # tc: telephone conversation
         # wb: web data
-        if self.id[:2] in ['bc', 'bn', 'mz', 'nw', 'pt', 'tc', 'wb']:
+        if str(self.id)[:2] in ['bc', 'bn', 'mz', 'nw', 'pt', 'tc', 'wb']:
             return self.id[:2]
         return 'wb' # default to web data genre
     

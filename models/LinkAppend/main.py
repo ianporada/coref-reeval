@@ -1,3 +1,8 @@
+"""
+Run inference on LinkAppend MT5
+or generate training data for training a new LinkAppend model.
+"""
+
 import json
 import logging
 import os
@@ -74,20 +79,10 @@ def main(tokenizer_path, model_path, output_dir, split, batch_size, max_input_si
     elif dataset_name == 'preco':
         dataset = load_dataset('coref-data/preco_indiscrim')
         documents = dataset[split]
-    elif dataset_name == 'pd':
-        dataset = load_dataset('coref-data/phrase_detectives_indiscrim')
-        documents = dataset[split]
-    elif dataset_name == 'mmc':
-        dataset = load_dataset('coref-data/mmc_indiscrim', 'mmc_en')
-        documents = dataset[split]
     else:
         dataset = load_dataset('coref-data/conll2012_indiscrim', 'english_v4')
         documents = dataset[split]
 
-    # select specific document TODO 
-    # documents = documents.filter(lambda example: example["id"] == 'bn/cnn/03/cnn_0350/part_0')
-    # documents = documents.filter(lambda example: example["id"] == 'bc/cctv/00/cctv_0000/part_0')
-    
     documents = documents.sort("id")
     
     if subset > 0:
@@ -105,8 +100,6 @@ def main(tokenizer_path, model_path, output_dir, split, batch_size, max_input_si
         model = MT5ForConditionalGeneration.from_pretrained(model_path)
         model = model.to(device='cuda')
         model.eval()
-        
-    # TODO: check if partial output exists and load from there
     
     saved_examples = [] # save all input/output pairs
     

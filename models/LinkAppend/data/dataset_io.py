@@ -1,3 +1,5 @@
+"""Helper functions for dataset io."""
+
 import json
 
 import conll_transform
