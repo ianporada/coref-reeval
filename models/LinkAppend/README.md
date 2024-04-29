@@ -33,6 +33,9 @@ python main.py \
     --subset_start 0
 ```
 
+### Finetuning
+
+Set `--model_path` to `'oracle'` and inference will generate the input/output examples for an oracle model in the output directory. Then finetune a seq2seq model on these input/output pairs. See `finetuning/main_large.py` for an example finetuning mT5-large.
 
 ## References
 
