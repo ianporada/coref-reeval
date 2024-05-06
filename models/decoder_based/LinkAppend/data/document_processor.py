@@ -42,6 +42,7 @@ class DocumentProcessor:
         
         self.id = document['id']
         self.sentences = document['sentences']
+        self.coref_chains = document['coref_chains'] # for use with oracle model
         for s in self.sentences:
             s['words'] = [t['text'] for t in s['tokens']]
         
@@ -195,7 +196,17 @@ class DocumentProcessor:
         assert self.last_input is not None
         
         sentence = self.sentences[self.current_sentence_index]
-        clusters = sentence['coref_spans'] # list of [hf_cluster_id, start, end] with inclusive indices
+
+        # initialize 'coref_spans' if running for the first time
+        if 'coref_spans' not in sentence:
+            for s in self.sentences:
+                s['coref_spans'] = []
+            for cluster_id, mentions in enumerate(self.coref_chains):
+                for sent_idx, start, end in mentions:
+                    self.sentences[sent_idx]['coref_spans'].append([cluster_id, start, end])
+
+        # list of [cluster_id, start, end] with inclusive indices
+        clusters = sentence['coref_spans']
         
         # sort the clusters by when they start (ascending order)
         # when two spans have the same start, process the outer span first

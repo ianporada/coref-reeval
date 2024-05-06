@@ -8,7 +8,7 @@ The code fo the enocder models is at models/enocder_based
 
 ### LinkAppend
 
-See the LinkAppend [README](models/LinkAppend/README.md).
+See the LinkAppend [README](models/decoder_based/LinkAppend/README.md).
 
 ## Details
 
