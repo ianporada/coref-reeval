@@ -1,0 +1,52 @@
+#This is the configuration file for training the c2f model
+seed: 0
+output_dir: '$SCRATCH/kd-coref-project-output'
+cache_dir: '$SCRATCH/cache/datasets_cache'
+
+preprocessing_cfg:
+  cache_dir: ${cache_dir}
+  tokenizer_name: microsoft/deberta-large
+  tokenizer_type: not-t5
+  genres: {"bc": 0, "bn": 1, "mz": 2, "nw": 3, "pt": 4, "tc": 5, "wb": 6}
+  max_segment_len: 512
+  max_training_segments: 11
+  num_workers: 6
+
+model_cfg:
+  llm_pretrained_name: microsoft/deberta-large
+  llm_type: not-t5
+  feature_emb_size: 20
+  dropout_rate: 0.3
+  max_span_width: 30
+  max_segment_len: 512
+  use_span_width_to_compute_emb: True
+  span_emb_compute_method: attention
+  ffnn_size: 3000
+  ffnn_depth: 1
+  max_num_extracted_spans: 3900
+  top_span_ratio: 0.4
+  crossing_mentions_allowed: False
+  max_top_antecedents: 50
+  use_span_dist_to_compute_rough_score: True
+  use_fine_score: True
+  use_speaker_info_to_compute_fine_score: True
+  use_genre_info_to_compute_fine_score: True
+  use_seg_dist_to_compute_fine_score: True
+  use_antecedent_dist_to_compute_fine_score: True
+  use_span_width_to_compute_mention_score: True
+  num_genres: 7
+  max_num_segments: 11
+
+training_cfg:
+  num_epochs: 50
+  total_steps_per_epoch: 2802
+  head_lr: 2e-4 
+  encoder_lr: 1e-5 
+  weight_decay: 1e-2
+  adam_eps: 1e-6
+
+trainer:
+  precision: 32
+  max_epochs: 50
+  default_root_dir: ${output_dir}
+  log_every_n_steps: 5

@@ -1,0 +1,39 @@
+#This is the configuration file for exps on compressing and pruning s2e model
+seed: 0
+output_dir: '$SCRATCH/kd-coref-project-output'
+cache_dir: '$SCRATCH/cache/datasets_cache'
+
+preprocessing_cfg:
+  cache_dir: ${cache_dir}
+  tokenizer_name: microsoft/deberta-large #allenai/longformer-large-4096 
+  tokenizer_type: not-t5
+  max_seq_len: 512 #4096
+  max_total_seq_len: 5000 #5000
+  num_workers: 6
+
+model_cfg:
+  llm_pretrained_name: microsoft/deberta-large  #allenai/longformer-large-4096
+  llm_type: not-t5
+  max_span_len: 30
+  top_lambda: 0.4 #0.4
+  ffnn_size_mention_detector: 4096 #3072
+  ffnn_size_mention_linker: 4096 #3072
+  dropout_prob: 0.3
+  normalise_loss: True
+
+training_cfg:
+  num_epochs: 129
+  total_steps_per_epoch: 522 #522
+  head_lr: 3e-4
+  encoder_lr: 1e-5
+  weight_decay: 0.01
+  adam_beta1: 0.9
+  adam_beta2: 0.98
+  adam_eps: 1e-6
+  num_warmup_steps: 5600 #5600
+
+trainer:
+  precision: bf16
+  max_epochs: 129
+  default_root_dir: ${output_dir}
+  log_every_n_steps: 5

@@ -12,6 +12,10 @@ The code for the four encoder models is at [models/encoder_based/](models/encode
 
 Our implementation of the LinkAppend model is available at [models/decoder_based/LinkAppend/](models/decoder_based/LinkAppend/). In particular, for details on training and inference see the [README](models/decoder_based/LinkAppend/README.md). The LinkAppend model can be trained using HuggingFace's Trainer.
 
+## Results
+
+As mentioned in the paper, we include a full precision recall breakdown for each F1 score. See `results/precision_recall.xlsx`.
+
 ## Details
 
 This repo includes the raw model code. Models implemented by @XiyuanZou and @ianporada.

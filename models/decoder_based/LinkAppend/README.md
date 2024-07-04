@@ -8,8 +8,8 @@ This directory contains our reimplementation of the LinkAppend model from the pa
 
 First create the environment using conda (or the local requirements.txt):
 ```bash
-conda create -y -n coref python=3.11 pytorch torchvision torchaudio pytorch-cuda=12.1
-conda activate coref
+conda create -y -n linkappend_env python=3.11 pytorch torchvision torchaudio pytorch-cuda=12.1
+conda activate linkappend_env
 conda install -y transformers=4.37.2 datasets wandb hydra-core sentencepiece
 ```
 
@@ -19,7 +19,7 @@ Then download the model weights from ['mt5-coref-pytorch/link-append-xxl'](https
 
 For example, to run inference on the first 10 documents of the PreCo test set run (inference fits on a single A100 80GB GPU):
 ```bash
-conda activate coref
+conda activate linkappend_env
 
 python main.py \
     --model_path $MODEL_CHECKPOINT \

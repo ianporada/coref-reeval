@@ -1,50 +1,36 @@
-# Large Language Models for Coreference Resolution
-
-[Shared Project Doc](https://docs.google.com/document/d/1QjnS299fbQINvgschjJIghNlDBqhQkAuXNpNcsbZu0g/edit#heading=h.gi489dvisd8f)
+# Encoder-based models
 
 ## Setup
 
-Create the conda env on a login node (named `coref_env`):
+All encoder-based models use the same environment. Instructions for creating this enivornment are as follows. You can see our exact creation scripts at `scripts/setup`.
+
+Create the conda env (named `coref_env`):
 ```bash
-./scripts/setup/setup_env.sh
+conda create -y -n coref_env python=3.9 cudatoolkit=11.3.1 --override-channels -c conda-forge -c nvidia
+conda activate coref_env
+conda install -y pytorch=1.12.1 torchvision==0.13.1 torchaudio==0.12.1 --override-channels -c nvidia -c pytorch -c conda-forge -c defaults
+
+conda install -y scikit-learn pandas matplotlib hydra-core --override-channels -c conda-forge
+conda install -y transformers==4.27.2 datasets==2.10.1 sentencepiece pytorch-lightning==2.0.0 --override-channels -c conda-forge
+conda install -y jsonlines wandb --override-channels -c conda-forge
+
+pip install udapi
+pip install nltk
+
 ```
 
-Login to huggingface and wandb:
+Activate the environment and login to huggingface and wandb:
 ```bash
-./scripts/setup/login.sh
+conda activate coref_env
+
+wandb login
+huggingface-cli login
 ```
 
-## Run on the mila cluster
+## Training
 
-Sync the code to the cluster, e.g.
-```bash
-rsync -v -r -a --delete ~/Documents/llm-coref mila:~/research/
-```
+To train a respective model, use `experiments/train_*/train.py`.
 
-Request an interactive node:
-```bash
-salloc --gres=gpu:a100:1 -c 6 --mem=10G -t 1:00:00 --partition=unkillable
-```
+## Inference
 
-Train:
-```bash
-./scripts/train.sh
-```
-
-## Models
-
-### Mention Ranking
-
-* BERT4Coref https://github.com/mandarjoshi90/coref
-  * Based on e2e-coref https://github.com/kentonl/e2e-coref
-* wl-coref https://github.com/vdobrovolskii/wl-coref
-* s2e-coref https://github.com/yuvalkirstain/s2e-coref
-
-## Scorers
-
-* CorefUD Scorer https://github.com/ufal/corefud-scorer
-  * Based on Universal Anaphora Scorer https://github.com/juntaoy/universal-anaphora-scorer
-
-## Data Preprocessing
-
-OntoNotes 5.0 is hosted on LDC and the CoNLL 2012 Shared Task splits are hosted by Cemantix on [their website](https://cemantix.org/data/ontonotes.html) (English/Arabic/Chinese v4 and English v9) and [GitHub](https://github.com/ontonotes/conll-formatted-ontonotes-5.0) (English v12). These must be combined with the OntoNotes 5.0 data using the skeleton2conll.sh script. Someone already uploaded the combined data at [this Huggingface dataset](https://huggingface.co/datasets/conll2012_ontonotesv5). Coreference is stored in coref_spans (cluster_id, (start_index, end_index)) inclusive.
+Use `inference/inference_*.py`.

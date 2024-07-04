@@ -1,0 +1,16 @@
+seed: 0
+output_dir: '$SCRATCH/kd-coref-project-output'
+cache_dir: '$SCRATCH/cache/datasets_cache'
+
+preprocessing_cfg:
+  cache_dir: ${cache_dir}
+  tokenizer_name: microsoft/deberta-base
+  tokenizer_type: not-t5
+  max_seq_len: 512
+  max_total_seq_len: 10000 
+  
+model_ckpt: /network/scratch/x/xiyuan.zou/kd-coref-project-output/lightning_logs/version_75/checkpoints/epoch=128-step=67467.ckpt
+dataset_name: ontoGUM #support ontonotes, GAP and ontoGUM
+dataset_split: train
+use_official_scorer: False
+inference_device: gpu #A100-large by default
