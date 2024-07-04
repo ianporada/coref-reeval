@@ -41,13 +41,18 @@ Set `--model_path` to `'oracle'` and inference will generate the input/output ex
 
 For details on our reimplementation of LinkAppend, see the paper:
 ```
-@misc{porada2024controlled,
-    title={A Controlled Reevaluation of Coreference Resolution Models},
-    author={Ian Porada and Xiyuan Zou and Jackie Chi Kit Cheung},
-    year={2024},
-    eprint={2404.00727},
-    archivePrefix={arXiv},
-    primaryClass={cs.CL}
+@inproceedings{porada-etal-2024-controlled-reevaluation,
+    title = "A Controlled Reevaluation of Coreference Resolution Models",
+    author = "Porada, Ian  and
+      Zou, Xiyuan  and
+      Cheung, Jackie Chi Kit",
+    booktitle = "Proceedings of the 2024 Joint International Conference on Computational Linguistics, Language Resources and Evaluation (LREC-COLING 2024)",
+    month = may,
+    year = "2024",
+    address = "Torino, Italia",
+    publisher = "ELRA and ICCL",
+    url = "https://aclanthology.org/2024.lrec-main.23",
+    pages = "256--263",
 }
 ```
 
@@ -66,6 +71,5 @@ Please also see the original paper from Bohnet et al.:
     url = "https://aclanthology.org/2023.tacl-1.13",
     doi = "10.1162/tacl_a_00543",
     pages = "212--226",
-    abstract = "Most recent coreference resolution systems use search algorithms over possible spans to identify mentions and resolve coreference. We instead present a coreference resolution system that uses a text-to-text (seq2seq) paradigm to predict mentions and links jointly. We implement the coreference system as a transition system and use multilingual T5 as an underlying language model. We obtain state-of-the-art accuracy on the CoNLL-2012 datasets with 83.3 F1-score for English (a 2.3 higher F1-score than previous work [Dobrovolskii, 2021]) using only CoNLL data for training, 68.5 F1-score for Arabic (+4.1 higher than previous work), and 74.3 F1-score for Chinese (+5.3). In addition we use the SemEval-2010 data sets for experiments in the zero-shot setting, a few-shot setting, and supervised setting using all available training data. We obtain substantially higher zero-shot F1-scores for 3 out of 4 languages than previous approaches and significantly exceed previous supervised state-of-the-art results for all five tested languages. We provide the code and models as open source.1",
 }
 ```
