@@ -79,6 +79,9 @@ def main(tokenizer_path, model_path, output_dir, split, batch_size, max_input_si
     elif dataset_name == 'preco':
         dataset = load_dataset('coref-data/preco_indiscrim')
         documents = dataset[split]
+    elif dataset_name == "ontonotes_chinese":
+        dataset = load_dataset('coref-data/conll2012_indiscrim', 'chinese_v4')
+        documents = dataset[split]
     else:
         dataset = load_dataset('coref-data/conll2012_indiscrim', 'english_v4')
         documents = dataset[split]
